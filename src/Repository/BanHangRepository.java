@@ -5,6 +5,7 @@
 package Repository;
 
 import Entity.BanHangSanPham;
+import Entity.SanPhamEntity;
 import java.util.ArrayList;
 import java.sql.*;
 import KetNoiSQL.ketnoi;
@@ -49,6 +50,7 @@ public class BanHangRepository {
     String c ="Chuyen De";  
     String d = "hoa hoc ";
     private void update(){
+        ArrayList<SanPhamEntity> ls = new ArrayList<>();
         
     }
 }
