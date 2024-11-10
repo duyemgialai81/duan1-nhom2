@@ -46,4 +46,5 @@ public class BanHangRepository {
     }
     String a = "hello";
     String b = "Duy em";
+    String c ="Chuyen De";  
 }
