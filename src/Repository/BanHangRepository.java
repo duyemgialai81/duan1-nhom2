@@ -44,5 +44,5 @@ public class BanHangRepository {
         }
         return ls;
     }
-    String a = "helooduy";
+    String a = "hello";
 }
