@@ -45,12 +45,5 @@ public class BanHangRepository {
         }
         return ls;
     }
-    String a = "hello";
-    String b = "Duy em";
-    String c ="Chuyen De";  
-    String d = "hoa hoc ";
-    private void update(){
-        ArrayList<SanPhamEntity> ls = new ArrayList<>();
-        
-    }
+ 
 }
