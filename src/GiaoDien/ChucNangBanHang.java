@@ -121,7 +121,7 @@ public class ChucNangBanHang extends javax.swing.JPanel {
         md.setRowCount(0);
         for (HoaDonEntity ls : lss) {
             md.addRow(new Object[]{
-                ls.getIdHoaDon(), ls.getMaHoaDon(), ls.getNgayLap(), ls.getTenNhanVien(), ls.getTenKhachHang()
+                ls.getIdHoaDon(), ls.getMaHoaDon(), ls.getNgayLap(), ls.getTenNhanVien(), ls.getTenKhachHang(), ls.getTrangThai()
             });
         }
     }
@@ -258,10 +258,8 @@ public class ChucNangBanHang extends javax.swing.JPanel {
          ArrayList<XemHoaDonTao> chiTietList = hd.getAllGioHang(maHoaDon);
     DefaultTableModel model = (DefaultTableModel) tbl_duyem.getModel();
     model.setRowCount(0);
-
-    // Sử dụng Map để nhóm các sản phẩm theo tên và cộng dồn số lượng
     Map<String, XemHoaDonTao> productMap = new HashMap<>();
-    
+   
     for (XemHoaDonTao chiTiet : chiTietList) {
         String tenSanPham = chiTiet.getTenSanPham();
         
@@ -871,13 +869,13 @@ for (XemHoaDonTao ct : productMap.values()) {
 
         tblhoadon1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Id Hóa Đơn", "Mã Hóa Đơn", "Ngày Tạo", "Nhân Viên Tạo", "Mã Khách Hàng"
+                "Id Hóa Đơn", "Mã Hóa Đơn", "Ngày Tạo", "Nhân Viên Tạo", "Mã Khách Hàng", "Trạng Thái"
             }
         ));
         tblhoadon1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1194,7 +1192,7 @@ for (XemHoaDonTao ct : productMap.values()) {
 
         int selectedRowHoaDon = tblhoadon1.getSelectedRow(); // Kiểm tra xem có hàng nào được chọn không
         if (selectedRowHoaDon != -1) {  // Nếu có hàng được chọn
-            // Lấy mã giỏ hàng từ cột đầu tiên (cột 0) của hàng được chọn trong bảng hóa đơn
+            
             int maGioHangHienTai = Integer.parseInt(tblhoadon1.getValueAt(selectedRowHoaDon, 0).toString());
             try {
                 loadCartData(maGioHangHienTai);
@@ -1403,22 +1401,15 @@ if (selectedRowHoaDon != -1) {
         } else {
             int idNhanVien = luuThongTinDangNhap.getInNhanVien();
             int maKhachHang = 3;
-            String trangThai = "đang chờ thanh toán";
-            String hinhThuc = "Đang Đợi";
-            String hinhThucBanHang = "Hình Thức Bán Hàng";
             String sql = """
-            INSERT INTO DonHang (ngay_lap, ma_nhan_vien, ma_khach_hang,trangThai,hinh_thuc_chuyen_tien,hinh_thuc_ban_hang)
-            VALUES (GETDATE(), ?,?,?,?,?,?)
+            INSERT INTO DonHang (ngay_dat, ma_nhan_vien, ma_khach_hang)
+            VALUES (GETDATE(), ?,?)
             """;
 
             try (Connection con = ketnoi.getConnection()) {
                 PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, idNhanVien);  // ID nhân viên tạo hóa đơn
-                ps.setInt(2, maKhachHang);  // Mã khách hàng (bán tại quầy)
-                ps.setObject(3, 0);
-                ps.setObject(4, trangThai);
-                ps.setObject(5, hinhThuc);
-                ps.setObject(6, hinhThucBanHang);
+                ps.setInt(1, idNhanVien);
+                ps.setInt(2, maKhachHang); 
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected > 0) {
                     JOptionPane.showMessageDialog(this, "Hóa đơn được tạo thành công!");

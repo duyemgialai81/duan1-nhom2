@@ -24,22 +24,23 @@ public class HoaDonrepository {
     public ArrayList<HoaDonEntity> getAll(){
         ArrayList<HoaDonEntity> ls = new ArrayList<>();
         String sql = """
-                  SELECT hd.id_ma_hoa_don, hd.ma_hoa_don, hd.ngay_lap, nv.ten_nhan_vien, kh.ten_khach_hang
-                    FROM HoaDon hd
-                    JOIN NhanVien nv ON nv.id_ma_nhan_vien = hd.ma_nhan_vien
-                    JOIN KhachHang kh ON kh.id_ma_khach_hang = hd.ma_khach_hang
-                    WHERE hd.trangThai = N'đang chờ thanh toán';
+                  select dh.id_ma_don_hang, dh.ma_don_hang, dh.ngay_dat, nv.ten_nhan_vien, kh.ten_khach_hang, dh.trang_thai
+                  from DonHang dh
+                  join NhanVien nv on nv.id_ma_nhan_vien = dh.ma_nhan_vien
+                  join KhachHang kh on kh.id_ma_khach_hang = dh.ma_khach_hang
+                  where dh.trang_thai = N'Đang Chờ Thanh Toán'
                      """;
         try (Connection con = ketnoi.getConnection()){
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 HoaDonEntity dh = new HoaDonEntity();
-                dh.setIdHoaDon(rs.getInt("id_ma_hoa_don"));
-                dh.setMaHoaDon(rs.getString("ma_hoa_don"));
-                dh.setNgayLap(rs.getDate("ngay_lap"));
+                dh.setIdHoaDon(rs.getInt("id_ma_don_hang"));
+                dh.setMaHoaDon(rs.getString("ma_don_hang"));
+                dh.setNgayLap(rs.getDate("ngay_dat"));
                 dh.setTenNhanVien(rs.getString("ten_nhan_vien"));
                 dh.setTenKhachHang(rs.getString("ten_khach_hang"));
+                dh.setTrangThai(rs.getString("trang_thai"));
                 ls.add(dh);
             }
             
@@ -70,7 +71,7 @@ public class HoaDonrepository {
         ArrayList<XemHoaDonTao> ls = new ArrayList<>();
         String sql ="""
                     select  sp.ma_san_pham, sp.ten_san_pham, cthd.so_luong,cthd.gia_ban
-                    from ChiTietHoaDon cthd
+                    from ChiTietDonHang cthd
                     join HoaDon hd on hd.id_ma_hoa_don = cthd.ma_hoa_don
                     join SanPham sp on sp.id_ma_san_pham = cthd.ma_san_pham
                     where hd.id_ma_hoa_don = ?

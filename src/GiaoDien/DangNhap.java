@@ -34,7 +34,7 @@ private TaiKhoanRepository ls = new TaiKhoanRepository();
         luuThongTinDangNhap.setVaiTro(vaiTro);
          int idNhanVien = ls.layIDNhaanVien(taiKhoan); 
         luuThongTinDangNhap.setInNhanVien(idNhanVien); 
-        if (ls.kiemTraQuyen(vaiTro, "Admin")) {
+        if (ls.kiemTraQuyen(vaiTro, "ADMIN")) {
             JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công với quyền Admin");
             GiaoDienChinh dg = new GiaoDienChinh();
             dg.setVisible(true);

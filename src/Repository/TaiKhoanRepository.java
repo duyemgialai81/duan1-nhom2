@@ -80,10 +80,10 @@ public class TaiKhoanRepository {
 //    }
 public boolean dangNhap(String tenDangNhap, String matKhau) {
         String sql = """
-                     select tenRole
+                     select ten_role
                      from Role
                      join NhanVien on NhanVien.id_ma_nhan_vien = Role.id_ma_role
-                     where nhanvien.taiKhoan = ? and nhanvien.matKhau = ? 
+                     where nhanvien.ten_tai_khoan = ? and nhanvien.mat_khau = ? 
                      """;
 
         try (Connection conn = ketnoi.getConnection();
@@ -94,7 +94,7 @@ public boolean dangNhap(String tenDangNhap, String matKhau) {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                String vaiTro = rs.getString("tenRole"); // Lấy vai trò
+                String vaiTro = rs.getString("ten_role"); // Lấy vai trò
                 System.out.println("Đăng nhập thành công! Vai trò: " + vaiTro);
                 return true;
             } else {
@@ -108,7 +108,7 @@ public boolean dangNhap(String tenDangNhap, String matKhau) {
     }
 public String layTenNhanVien(String taiKhoan) {
     String maNhanVien = null;
-    String sql = "SELECT ten_nhan_vien FROM NhanVien WHERE taiKhoan = ?";
+    String sql = "SELECT ten_nhan_vien FROM NhanVien WHERE ten_tai_khoan = ?";
     try (Connection con = ketnoi.getConnection()){
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, taiKhoan);
@@ -123,7 +123,7 @@ public String layTenNhanVien(String taiKhoan) {
 }
 public int layIDNhaanVien(String taiKhoan) {
     int idNhanVien = -1;
-    String sql = "select id_ma_nhan_vien from NhanVien where taiKhoan = ?";
+    String sql = "select id_ma_nhan_vien from NhanVien where ten_tai_khoan = ?";
     try (Connection con = ketnoi.getConnection()) {
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, taiKhoan);
@@ -160,10 +160,10 @@ public int layIDNhaanVien(String taiKhoan) {
     // Phương thức lấy vai trò
     public String layVaiTro(String tenTaiKhoan) {
         String sql = """
-                     select tenRole
+                     select ten_role
                      from Role
                      join NhanVien on NhanVien.id_ma_nhan_vien = Role.id_ma_role
-                     where nhanvien.taiKhoan = ?
+                     where nhanvien.ten_tai_khoan = ?
                      """;
         String tenRole = null;
 
@@ -173,7 +173,7 @@ public int layIDNhaanVien(String taiKhoan) {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                tenRole = rs.getString("tenRole");
+                tenRole = rs.getString("ten_role");
             }
         } catch (SQLException e) {
             e.printStackTrace();
