@@ -48,4 +48,7 @@ public class BanHangRepository {
     String b = "Duy em";
     String c ="Chuyen De";  
     String d = "hoa hoc ";
+    private void update(){
+        
+    }
 }
