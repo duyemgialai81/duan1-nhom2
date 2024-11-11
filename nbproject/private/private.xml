@@ -14,9 +14,8 @@
         <group>
             <file>file:/D:/duan1javanhom2/duan1-nhom2/src/KetNoiSQL/ketnoi.java</file>
             <file>file:/D:/duan1javanhom2/duan1-nhom2/src/GiaoDien/ChucNangNhanVien.java</file>
-            <file>file:/D:/duan1javanhom2/duan1-nhom2/src/Entity/NhanVienEntity.java</file>
-            <file>file:/D:/duan1javanhom2/duan1-nhom2/src/GiaoDien/DangNhap.java</file>
             <file>file:/D:/duan1javanhom2/duan1-nhom2/src/Repository/NhanVienRepository.java</file>
+            <file>file:/D:/duan1javanhom2/duan1-nhom2/src/Repository/SanPhamRepository.java</file>
             <file>file:/D:/duan1javanhom2/duan1-nhom2/src/GiaoDien/GiaoDienChinh.java</file>
         </group>
     </open-files>

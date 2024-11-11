@@ -57,7 +57,7 @@ public class NhanVienRepository {
   public ArrayList<NhanVienEntity> layDuLieuNhanVien(){
       ArrayList<NhanVienEntity> ls = new ArrayList<>();
       String sql = """
-                  select ma_nhan_vien, ten_nhan_vien,email,so_dien_thoai,dia_chi,trang_thai,ngaySinh,gioiTinh
+                  select ma_nhan_vien, ten_nhan_vien,email,so_dien_thoai,dia_chi,trang_thai,gioiTinh
                                       from nhanVien
                                       where trang_thai = 1
                    """;
@@ -73,6 +73,7 @@ public class NhanVienRepository {
               nv.setSoDienThoai(rs.getString("so_dien_thoai"));
               nv.setDiaChi(rs.getString("dia_chi"));
               nv.setTrangThai(rs.getBoolean("trang_thai"));
+              nv.setGioiTinh(rs.getBoolean("gioiTinh"));
               ls.add(nv);
           }
       } catch (Exception e) {
@@ -83,7 +84,7 @@ public class NhanVienRepository {
   public ArrayList<NhanVienEntity> layDuLieuNhanVienNghilam(){
       ArrayList<NhanVienEntity> ls = new ArrayList<>();
       String sql = """
-                    select ma_nhan_vien, ten_nhan_vien,email,so_dien_thoai,dia_chi,trang_thai,ngaySinh,gioiTinh
+                    select ma_nhan_vien, ten_nhan_vien,email,so_dien_thoai,dia_chi,trang_thai,gioiTinh
                                                          from nhanVien
                                                          where trang_thai = 0
                    """;
@@ -99,6 +100,7 @@ public class NhanVienRepository {
               nv.setSoDienThoai(rs.getString("so_dien_thoai"));
               nv.setDiaChi(rs.getString("dia_chi"));
               nv.setTrangThai(rs.getBoolean("trang_thai"));
+              nv.setGioiTinh(rs.getBoolean("gioiTinh"));
               ls.add(nv);
           }
       } catch (Exception e) {
@@ -127,5 +129,65 @@ public class NhanVienRepository {
           e.printStackTrace();
       }
       return check >0;
+  }
+  public boolean  updateNhanVien(NhanVienEntity nv, String nhanVien){
+      int check = 0;
+      String sql = """
+                   update nhanVien 
+                   set ten_nhan_vien =?,email =?, so_dien_thoai = ?, dia_chi =?, gioiTinh = ?, trang_thai =?
+                   where ma_nhan_vien =?
+                   """;
+      try (Connection con = ketnoi.getConnection()){
+          PreparedStatement ps = con.prepareStatement(sql);
+          ps.setObject(1, nv.getTenNhanVien());
+          ps.setObject(2, nv.getEmail());
+          ps.setObject(3, nv.getSoDienThoai());
+          ps.setObject(4, nv.getDiaChi());
+          ps.setObject(5, nv.isTrangThai());
+          ps.setObject(6, nv.isGioiTinh());
+          ps.setObject(7, nhanVien);
+          check = ps.executeUpdate();
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
+      return check >0;
+  }
+  public ArrayList<NhanVienEntity> timKiemNhanVienDangLam(String tenNhanVien, String emali, String SoDienThoai, String diaChi ){
+      ArrayList<NhanVienEntity> ls = new ArrayList<>();
+      String sql = """
+                   select ma_nhan_vien, ten_nhan_vien,email,so_dien_thoai,dia_chi,trang_thai,gioiTinh
+                   from nhanVien
+                   where (ten_nhan_vien LIKE ? OR ? = '')
+                                               AND (so_dien_thoai LIKE ? OR ? = '')
+                                               AND (dia_chi LIKE ? OR ? = '')
+                                               AND (email LIKE ? OR ? = '')
+                   """;
+      try {
+          Connection con = ketnoi.getConnection();
+          PreparedStatement ps = con.prepareStatement(sql);
+          ps.setObject(1, tenNhanVien);
+          ps.setObject(2, "%"+tenNhanVien+"%");
+          ps.setObject(3, emali);
+          ps.setObject(4, "%"+emali+"%");
+          ps.setObject(5, SoDienThoai);
+          ps.setObject(6, "%"+SoDienThoai+"%");
+          ps.setObject(7,diaChi);
+          ps.setObject(8, "%"+diaChi+"%");
+          ResultSet rs = ps.executeQuery();
+          while(rs.next()){
+               NhanVienEntity nv = new NhanVienEntity();
+              nv.setMaNhanVien(rs.getString("ma_nhan_vien"));
+              nv.setTenNhanVien(rs.getString("ten_nhan_vien"));
+              nv.setEmail(rs.getString("email"));
+              nv.setSoDienThoai(rs.getString("so_dien_thoai"));
+              nv.setDiaChi(rs.getString("dia_chi"));
+              nv.setTrangThai(rs.getBoolean("trang_thai"));
+              nv.setGioiTinh(rs.getBoolean("gioiTinh"));
+              ls.add(nv);
+          }
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
+      return ls;
   }
 }
