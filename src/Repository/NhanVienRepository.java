@@ -22,8 +22,6 @@ public class NhanVienRepository {
                  """;
     try (Connection con = ketnoi.getConnection();
          PreparedStatement ps = con.prepareStatement(sql)) {
-// Đặt giá trị cho tham số id_role
-        
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             NhanVienEntity nv = new NhanVienEntity();
@@ -40,5 +38,22 @@ public class NhanVienRepository {
     }
     return ls;
 }
+   public boolean delete(String maNhanVien){
+       int check =0;
+       String sql ="""
+                   delete NhanVien
+                  where ma_nhan_vien =?
+                   """;
+       try {
+           Connection con = ketnoi.getConnection();
+           PreparedStatement ps = con.prepareStatement(sql);
+           ps.setObject(1,maNhanVien);
+           check =ps.executeUpdate();
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+       return check  >0;
+   }
+   
 
 }
