@@ -785,9 +785,7 @@ public class ChucNangBanHang extends javax.swing.JPanel {
                                                             .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING)))
                                                     .addComponent(txtthanhtien, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addGroup(jPanel_DonHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addGroup(jPanel_DonHangLayout.createSequentialGroup()
-                                                            .addGap(124, 124, 124)
-                                                            .addComponent(jLabel20))
+                                                        .addComponent(jLabel20)
                                                         .addGroup(jPanel_DonHangLayout.createSequentialGroup()
                                                             .addGroup(jPanel_DonHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                                 .addComponent(txttongSoTien, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
@@ -894,8 +892,8 @@ public class ChucNangBanHang extends javax.swing.JPanel {
             jPanel_HoaDonCHoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_HoaDonCHoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel_HoaDonCHoLayout.setVerticalGroup(
             jPanel_HoaDonCHoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

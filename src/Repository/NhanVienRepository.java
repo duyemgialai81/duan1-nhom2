@@ -57,9 +57,9 @@ public class NhanVienRepository {
   public ArrayList<NhanVienEntity> layDuLieuNhanVien(){
       ArrayList<NhanVienEntity> ls = new ArrayList<>();
       String sql = """
-                   select ma_nhan_vien, ten_nhan_vien,email,so_dien_thoai,dia_chi,trang_thai
-                   from nhanVien
-                   where trang_thai = "Đang Làm"
+                  select ma_nhan_vien, ten_nhan_vien,email,so_dien_thoai,dia_chi,trang_thai,ngaySinh,gioiTinh
+                                      from nhanVien
+                                      where trang_thai = 1
                    """;
       try {
           Connection con = ketnoi.getConnection();
@@ -72,12 +72,60 @@ public class NhanVienRepository {
               nv.setEmail(rs.getString("email"));
               nv.setSoDienThoai(rs.getString("so_dien_thoai"));
               nv.setDiaChi(rs.getString("dia_chi"));
-              nv.setTrangThai(rs.getString("trang_thai"));
+              nv.setTrangThai(rs.getBoolean("trang_thai"));
               ls.add(nv);
           }
       } catch (Exception e) {
           e.printStackTrace();
       }
       return  ls;
+  }
+  public ArrayList<NhanVienEntity> layDuLieuNhanVienNghilam(){
+      ArrayList<NhanVienEntity> ls = new ArrayList<>();
+      String sql = """
+                    select ma_nhan_vien, ten_nhan_vien,email,so_dien_thoai,dia_chi,trang_thai,ngaySinh,gioiTinh
+                                                         from nhanVien
+                                                         where trang_thai = 0
+                   """;
+      try {
+          Connection con = ketnoi.getConnection();
+          PreparedStatement ps = con.prepareStatement(sql);
+          ResultSet rs = ps.executeQuery();
+          while(rs.next()){
+               NhanVienEntity nv = new NhanVienEntity();
+              nv.setMaNhanVien(rs.getString("ma_nhan_vien"));
+              nv.setTenNhanVien(rs.getString("ten_nhan_vien"));
+              nv.setEmail(rs.getString("email"));
+              nv.setSoDienThoai(rs.getString("so_dien_thoai"));
+              nv.setDiaChi(rs.getString("dia_chi"));
+              nv.setTrangThai(rs.getBoolean("trang_thai"));
+              ls.add(nv);
+          }
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
+      return ls;
+  }
+  
+  public boolean ThemNhanVien(NhanVienEntity nv){
+      int check =0;
+      String sql ="""
+                  insert into nhanVien (ten_nhan_vien, email, so_dien_thoai,dia_chi,trang_thai,gioiTinh)
+                  values(?,?,?,?,?,?)
+                  """;
+      try {
+          Connection con = ketnoi.getConnection();
+          PreparedStatement ps = con.prepareStatement(sql);
+          ps.setObject(1, nv.getTenNhanVien());
+          ps.setObject(2, nv.getEmail());
+          ps.setObject(3, nv.getSoDienThoai());
+          ps.setObject(4, nv.getDiaChi());
+          ps.setObject(5, nv.isTrangThai());
+          ps.setObject(6, nv.isGioiTinh());
+          check = ps.executeUpdate();
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
+      return check >0;
   }
 }

@@ -14,6 +14,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;  
 
 /**
@@ -33,10 +34,12 @@ public class GiaoDienChinh extends javax.swing.JFrame {
          ls.add(new ChucNang("ChucNangSanPham", tblsanpham, tblsanpham1));
          ls.add(new ChucNang("ChucNangHoaDon", tblhoadon, tbhhoadon1));
          ls.add(new ChucNang("ChuCNangQuanLyNhanVien",btlnnhanvien1, btlnnhanvien));
+       
          ccn.DuyEm(ls);
          hirnThiDuLieu();
     }
-
+        
+        
     public void hirnThiDuLieu(){
 //        txtTenNhanvien.setText(luuThongTinDangNhap.getTenNhanVien());
         txtTenNhanvien.setText(String.valueOf(luuThongTinDangNhap.getInNhanVien()));

@@ -15,12 +15,13 @@ public class NhanVienEntity {
     private String email;
     private String diaChi;
     private int idRole;
-    private String trangThai;
+    private boolean trangThai;
+    private boolean gioiTinh;
 
     public NhanVienEntity() {
     }
 
-    public NhanVienEntity(String maNhanVien, String tenNhanVien, String soDienThoai, String email, String diaChi, int idRole, String trangThai) {
+    public NhanVienEntity(String maNhanVien, String tenNhanVien, String soDienThoai, String email, String diaChi, int idRole, boolean trangThai, boolean gioiTinh) {
         this.maNhanVien = maNhanVien;
         this.tenNhanVien = tenNhanVien;
         this.soDienThoai = soDienThoai;
@@ -28,6 +29,7 @@ public class NhanVienEntity {
         this.diaChi = diaChi;
         this.idRole = idRole;
         this.trangThai = trangThai;
+        this.gioiTinh = gioiTinh;
     }
 
     public String getMaNhanVien() {
@@ -78,13 +80,19 @@ public class NhanVienEntity {
         this.idRole = idRole;
     }
 
-    public String getTrangThai() {
+    public boolean isTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(String trangThai) {
+    public void setTrangThai(boolean trangThai) {
         this.trangThai = trangThai;
     }
 
-   
+    public boolean isGioiTinh() {
+        return gioiTinh;
+    }
+
+    public void setGioiTinh(boolean gioiTinh) {
+        this.gioiTinh = gioiTinh;
+    }
 }

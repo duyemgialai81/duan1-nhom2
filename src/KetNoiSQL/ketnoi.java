@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * @author SingPC
  */
 public class ketnoi {
-       private static final String USERNAME = "sa";
+    private static final String USERNAME = "sa";
     private static final String PASSWORD = "123";
     private static final String SERVER = "localhost";
     private static final String PORT = "1433";
