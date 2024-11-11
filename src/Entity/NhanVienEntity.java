@@ -15,17 +15,19 @@ public class NhanVienEntity {
     private String email;
     private String diaChi;
     private int idRole;
+    private String trangThai;
 
     public NhanVienEntity() {
     }
 
-    public NhanVienEntity(String maNhanVien, String tenNhanVien, String soDienThoai, String email, String diaChi, int idRole) {
+    public NhanVienEntity(String maNhanVien, String tenNhanVien, String soDienThoai, String email, String diaChi, int idRole, String trangThai) {
         this.maNhanVien = maNhanVien;
         this.tenNhanVien = tenNhanVien;
         this.soDienThoai = soDienThoai;
         this.email = email;
         this.diaChi = diaChi;
         this.idRole = idRole;
+        this.trangThai = trangThai;
     }
 
     public String getMaNhanVien() {
@@ -75,5 +77,14 @@ public class NhanVienEntity {
     public void setIdRole(int idRole) {
         this.idRole = idRole;
     }
-    
+
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
+
+   
 }

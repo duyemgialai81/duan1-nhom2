@@ -54,6 +54,30 @@ public class NhanVienRepository {
        }
        return check  >0;
    }
-   
-
+  public ArrayList<NhanVienEntity> layDuLieuNhanVien(){
+      ArrayList<NhanVienEntity> ls = new ArrayList<>();
+      String sql = """
+                   select ma_nhan_vien, ten_nhan_vien,email,so_dien_thoai,dia_chi,trang_thai
+                   from nhanVien
+                   where trang_thai = "Đang Làm"
+                   """;
+      try {
+          Connection con = ketnoi.getConnection();
+          PreparedStatement ps = con.prepareStatement(sql);
+          ResultSet rs  = ps.executeQuery();
+          while(rs.next()){
+              NhanVienEntity nv = new NhanVienEntity();
+              nv.setMaNhanVien(rs.getString("ma_nhan_vien"));
+              nv.setTenNhanVien(rs.getString("ten_nhan_vien"));
+              nv.setEmail(rs.getString("email"));
+              nv.setSoDienThoai(rs.getString("so_dien_thoai"));
+              nv.setDiaChi(rs.getString("dia_chi"));
+              nv.setTrangThai(rs.getString("trang_thai"));
+              ls.add(nv);
+          }
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
+      return  ls;
+  }
 }

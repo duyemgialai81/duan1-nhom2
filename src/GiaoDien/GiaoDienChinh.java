@@ -32,6 +32,7 @@ public class GiaoDienChinh extends javax.swing.JFrame {
          ls.add(new ChucNang("ChucNangBanHang", tblbanhang1,tblbanhang ));
          ls.add(new ChucNang("ChucNangSanPham", tblsanpham, tblsanpham1));
          ls.add(new ChucNang("ChucNangHoaDon", tblhoadon, tbhhoadon1));
+         ls.add(new ChucNang("ChuCNangQuanLyNhanVien",btlnnhanvien1, btlnnhanvien));
          ccn.DuyEm(ls);
          hirnThiDuLieu();
     }
@@ -64,6 +65,8 @@ public class GiaoDienChinh extends javax.swing.JFrame {
         tblsanpham1 = new javax.swing.JButton();
         tblhoadon = new javax.swing.JPanel();
         tbhhoadon1 = new javax.swing.JButton();
+        btlnnhanvien1 = new javax.swing.JPanel();
+        btlnnhanvien = new javax.swing.JButton();
         manhinh = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -204,6 +207,25 @@ public class GiaoDienChinh extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
+        btlnnhanvien.setText("NHÂN VIÊN");
+
+        javax.swing.GroupLayout btlnnhanvien1Layout = new javax.swing.GroupLayout(btlnnhanvien1);
+        btlnnhanvien1.setLayout(btlnnhanvien1Layout);
+        btlnnhanvien1Layout.setHorizontalGroup(
+            btlnnhanvien1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btlnnhanvien1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btlnnhanvien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        btlnnhanvien1Layout.setVerticalGroup(
+            btlnnhanvien1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btlnnhanvien1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btlnnhanvien, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout chucnangmenuLayout = new javax.swing.GroupLayout(chucnangmenu);
         chucnangmenu.setLayout(chucnangmenuLayout);
         chucnangmenuLayout.setHorizontalGroup(
@@ -214,7 +236,8 @@ public class GiaoDienChinh extends javax.swing.JFrame {
                     .addComponent(tblsanpham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tbltrangchu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tblbanhang1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tblhoadon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tblhoadon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btlnnhanvien1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         chucnangmenuLayout.setVerticalGroup(
@@ -228,7 +251,9 @@ public class GiaoDienChinh extends javax.swing.JFrame {
                 .addComponent(tblsanpham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tblhoadon, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(309, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btlnnhanvien1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(214, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
@@ -360,6 +385,8 @@ public class GiaoDienChinh extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btlnnhanvien;
+    private javax.swing.JPanel btlnnhanvien1;
     private javax.swing.JPanel chucnangmenu;
     private javax.swing.JPanel hinhMenu;
     private javax.swing.JPanel jPanel1;

@@ -90,6 +90,10 @@ public class ChuyenChucNang {
                     break;
                 case "ChucNangThongKe":
                     node = new ChucNangThongKe();
+                    break;
+                case "ChuCNangQuanLyNhanVien":
+                    node = new ChucNangNhanVien();
+                    break;
                     default:
                     break;
 

@@ -4,19 +4,36 @@
  */
 package GiaoDien;
 
+import Entity.NhanVienEntity;
+import Repository.NhanVienRepository;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author SingPC
  */
 public class ChucNangNhanVien extends javax.swing.JPanel {
+private NhanVienRepository nv = new NhanVienRepository();
+private DefaultTableModel md = new DefaultTableModel();
 
     /**
      * Creates new form ChucNangNhanVien
      */
     public ChucNangNhanVien() {
         initComponents();
+        HienThiDuLieu(nv.layDuLieuNhanVien());
     }
-
+    private  void HienThiDuLieu(ArrayList<NhanVienEntity>nhanVien){
+        md = (DefaultTableModel) tbl_DangLamViec.getModel();
+        md.setRowCount(0);
+        
+        for (NhanVienEntity nhanVienEntity : nhanVien) {
+            md.addRow(new Object[]{
+                nhanVienEntity.getMaNhanVien(), nhanVienEntity.getTenNhanVien(), nhanVienEntity.getEmail(), nhanVienEntity.getSoDienThoai(), nhanVienEntity.getDiaChi(), nhanVienEntity.getTrangThai()
+            });
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
