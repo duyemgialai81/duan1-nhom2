@@ -70,11 +70,11 @@ public class HoaDonrepository {
     public ArrayList<XemHoaDonTao> getAllGioHang(int maHoaDon){
         ArrayList<XemHoaDonTao> ls = new ArrayList<>();
         String sql ="""
-                    select  sp.ma_san_pham, sp.ten_san_pham, cthd.so_luong,cthd.gia_ban
-                    from ChiTietDonHang cthd
-                    join HoaDon hd on hd.id_ma_hoa_don = cthd.ma_hoa_don
-                    join SanPham sp on sp.id_ma_san_pham = cthd.ma_san_pham
-                    where hd.id_ma_hoa_don = ?
+                    select  sp.ma_san_pham, sp.ten_san_pham, ctdh.so_luong, ctdh.gia_ban
+                    from ChiTietDonHang ctdh
+                    join SanPham sp on ctdh.ma_san_pham = sp.id_ma_san_pham
+                    join DonHang dh on ctdh.ma_don_hang = dh.id_ma_don_hang
+                    where dh.id_ma_don_hang = ?
                     """;
         try {
             Connection con = ketnoi.getConnection();
@@ -94,22 +94,46 @@ public class HoaDonrepository {
         }
         return ls;
     }
-    public boolean themChiTietHoaDon(int idMaHoaDon, int idMaSanPham, int soLuong, double giaBan) {
-        String sql = "INSERT INTO ChiTietHoaDon (ma_hoa_don, ma_san_pham, so_luong, gia_ban) VALUES (?, ?, ?, ?)";
-        try (Connection con = ketnoi.getConnection()){ 
-        PreparedStatement preparedStatement = con.prepareStatement(sql);
-            preparedStatement.setInt(1, idMaHoaDon);
-            preparedStatement.setInt(2, idMaSanPham);
-            preparedStatement.setInt(3, soLuong);
-            preparedStatement.setDouble(4, giaBan);
-            
-            int rowsAffected = preparedStatement.executeUpdate();
-            return rowsAffected > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
+ public boolean themChiTietDonHang(int idDonHang, int idMaSanPham, int soLuong, double giaBan) {
+    String sqlGetMaxId = "SELECT MAX(id_ma_hoa_don) FROM hoaDon";
+    Integer maHoaDon = null;
+    
+    try (Connection con = ketnoi.getConnection()) {
+        // Lấy id_hoa_don lớn nhất
+        PreparedStatement psGetMaxId = con.prepareStatement(sqlGetMaxId);
+        ResultSet rs = psGetMaxId.executeQuery();
+        
+        if (rs.next()) {
+            maHoaDon = rs.getInt(1);  // lấy giá trị của id_hoa_don lớn nhất
+        }
+
+        // Nếu không tìm thấy, trả về false
+        if (maHoaDon == null) {
             return false;
         }
+
+        // Câu lệnh INSERT vào bảng ChiTietDonHang
+        String sqlInsert = "INSERT INTO ChiTietDonHang (ma_don_hang, ma_san_pham, so_luong, gia_ban, ma_hoa_don) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = con.prepareStatement(sqlInsert)) {
+            // Gán các giá trị vào câu lệnh SQL
+            preparedStatement.setInt(1, idDonHang);  // ma_don_hang
+            preparedStatement.setInt(2, idMaSanPham);  // ma_san_pham
+            preparedStatement.setInt(3, soLuong);  // so_luong
+            preparedStatement.setDouble(4, giaBan);  // gia_ban
+            preparedStatement.setInt(5, maHoaDon);  // ma_hoa_don (id_hoa_don lớn nhất)
+
+            // Thực hiện câu lệnh SQL
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            // Kiểm tra xem có dòng nào bị ảnh hưởng không
+            return rowsAffected > 0;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;  // Nếu có lỗi, trả về false
     }
+}
+
 public boolean capNhatSoLuongSanPham(int idMaSanPham, int soLuongMoi) {
     String sql = "UPDATE SanPham SET so_luong_ton = ? WHERE id_ma_san_pham = ?";  
     try (Connection con = ketnoi.getConnection();

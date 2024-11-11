@@ -1154,8 +1154,8 @@ for (XemHoaDonTao ct : productMap.values()) {
                 if (soLuong <= soLuongTon) {
                     int selectedRowHoaDon = tblhoadon1.getSelectedRow();
                     if (selectedRowHoaDon != -1) {
-                        int idMaHoaDon = Integer.parseInt(tblhoadon1.getValueAt(selectedRowHoaDon, 0).toString());
-                        boolean success = hd.themChiTietHoaDon(idMaHoaDon, idMaSanPham, soLuong, giaBan);
+                        int maDonHang = Integer.parseInt(tblhoadon1.getValueAt(selectedRowHoaDon, 0).toString());
+                        boolean success = hd.themChiTietDonHang(maDonHang, idMaSanPham, soLuong, giaBan);
                         if (success) {
                             boolean updateSuccess = hd.capNhatSoLuongSanPham(idMaSanPham, soLuongTon - soLuong);
                             if (updateSuccess) {
@@ -1399,17 +1399,48 @@ if (selectedRowHoaDon != -1) {
         if (tblhoadon1.getSelectedRow() > 10) {
             JOptionPane.showMessageDialog(Jpanel_Nen, "Hóa Đơn Không Tạo Lớn Hơn 10");
         } else {
-            int idNhanVien = luuThongTinDangNhap.getInNhanVien();
+           String trangThai = "Chưa Thanh Toán";
+           String phuongThuc ="null";
+            float tienKhachDua =0;
+            float tienTraKhach =0;
+           float thue = 0;
+            String sqlll = """
+                           insert into hoaDon (ngay_lap,tien_khach_dua,tien_tra_khach,phuong_thuc,trang_thai,thue)
+                           values(getdate(),?,?,?,?,?)
+                           """;
+            try {
+                Connection con = ketnoi.getConnection();
+                PreparedStatement ps = con.prepareStatement(sqlll);
+                
+                ps.setFloat(1, tienKhachDua);
+                ps.setFloat(2, tienTraKhach);
+                ps.setString(3, phuongThuc);
+                ps.setString(4, trangThai);
+                ps.setFloat(5, thue);
+                
+                int check = ps.executeUpdate();
+                if(check > 0){
+                    JOptionPane.showMessageDialog(this, "Hóa đơn được tạo thành công!");
+                }else{
+                    JOptionPane.showMessageDialog(this, "Có lỗi khi tạo hóa đơn.");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+             int idNhanVien = luuThongTinDangNhap.getInNhanVien();
             int maKhachHang = 3;
+            String duyem = "Đang Chờ Thanh Toán";
             String sql = """
-            INSERT INTO DonHang (ngay_dat, ma_nhan_vien, ma_khach_hang)
-            VALUES (GETDATE(), ?,?)
+            INSERT INTO DonHang (ngay_dat, ma_nhan_vien, ma_khach_hang,trang_thai)
+            VALUES (GETDATE(), ?,?,?)
             """;
 
             try (Connection con = ketnoi.getConnection()) {
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setInt(1, idNhanVien);
                 ps.setInt(2, maKhachHang); 
+                ps.setString(3, duyem);
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected > 0) {
                     JOptionPane.showMessageDialog(this, "Hóa đơn được tạo thành công!");
