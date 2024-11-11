@@ -12,41 +12,43 @@ import org.bridj.cpp.com.OLEAutomationLibrary;
  * @author SingPC
  */
 public class HoaDonEntity {
-    private int idHoaDon;
-    private String maHoaDon;
+    private int idDonHang;
+    private String maDonHang;
     private Date ngayLap;
     private float tongTien;
     private String tenNhanVien;
     private String tenKhachHang;
     private String trangThai;
+    private int idHoaDon;
 
     public HoaDonEntity() {
     }
 
-    public HoaDonEntity(int idHoaDon, String maHoaDon, Date ngayLap, float tongTien, String tenNhanVien, String tenKhachHang, String trangThai) {
-        this.idHoaDon = idHoaDon;
-        this.maHoaDon = maHoaDon;
+    public HoaDonEntity(int idDonHang, String maDonHang, Date ngayLap, float tongTien, String tenNhanVien, String tenKhachHang, String trangThai, int idHoaDon) {
+        this.idDonHang = idDonHang;
+        this.maDonHang = maDonHang;
         this.ngayLap = ngayLap;
         this.tongTien = tongTien;
         this.tenNhanVien = tenNhanVien;
         this.tenKhachHang = tenKhachHang;
         this.trangThai = trangThai;
-    }
-
-    public int getIdHoaDon() {
-        return idHoaDon;
-    }
-
-    public void setIdHoaDon(int idHoaDon) {
         this.idHoaDon = idHoaDon;
     }
 
-    public String getMaHoaDon() {
-        return maHoaDon;
+    public int getIdDonHang() {
+        return idDonHang;
     }
 
-    public void setMaHoaDon(String maHoaDon) {
-        this.maHoaDon = maHoaDon;
+    public void setIdDonHang(int idDonHang) {
+        this.idDonHang = idDonHang;
+    }
+
+    public String getMaDonHang() {
+        return maDonHang;
+    }
+
+    public void setMaDonHang(String maDonHang) {
+        this.maDonHang = maDonHang;
     }
 
     public Date getNgayLap() {
@@ -89,6 +91,12 @@ public class HoaDonEntity {
         this.trangThai = trangThai;
     }
 
-    
+    public int getIdHoaDon() {
+        return idHoaDon;
+    }
+
+    public void setIdHoaDon(int idHoaDon) {
+        this.idHoaDon = idHoaDon;
+    }
     
 }

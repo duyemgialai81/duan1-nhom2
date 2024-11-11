@@ -24,10 +24,11 @@ public class HoaDonrepository {
     public ArrayList<HoaDonEntity> getAll(){
         ArrayList<HoaDonEntity> ls = new ArrayList<>();
         String sql = """
-                  select dh.id_ma_don_hang, dh.ma_don_hang, dh.ngay_dat, nv.ten_nhan_vien, kh.ten_khach_hang, dh.trang_thai
+                  select dh.id_ma_don_hang, dh.ma_don_hang, dh.ngay_dat, nv.ten_nhan_vien, kh.ten_khach_hang, dh.trang_thai, hd.id_ma_hoa_don
                   from DonHang dh
                   join NhanVien nv on nv.id_ma_nhan_vien = dh.ma_nhan_vien
                   join KhachHang kh on kh.id_ma_khach_hang = dh.ma_khach_hang
+                  join HoaDon hd on hd.ma_don_hang = dh.id_ma_don_hang
                   where dh.trang_thai = N'Đang Chờ Thanh Toán'
                      """;
         try (Connection con = ketnoi.getConnection()){
@@ -36,11 +37,12 @@ public class HoaDonrepository {
             while(rs.next()){
                 HoaDonEntity dh = new HoaDonEntity();
                 dh.setIdHoaDon(rs.getInt("id_ma_don_hang"));
-                dh.setMaHoaDon(rs.getString("ma_don_hang"));
+                dh.setMaDonHang(rs.getString("ma_don_hang"));
                 dh.setNgayLap(rs.getDate("ngay_dat"));
                 dh.setTenNhanVien(rs.getString("ten_nhan_vien"));
                 dh.setTenKhachHang(rs.getString("ten_khach_hang"));
                 dh.setTrangThai(rs.getString("trang_thai"));
+                dh.setIdHoaDon(rs.getInt("id_ma_hoa_don"));
                 ls.add(dh);
             }
             
